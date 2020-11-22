@@ -1,24 +1,61 @@
-# README
+## users テーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Column   | Type   | Options                   |
+| -------- | ------ | ------------------------- |
+| nickname | string | null: false               |
+| email    | string | null: false, unique: true	|
+| password | string | null: false               |
 
-Things you may want to cover:
+### Association
+- has_many :items
+- has_many :comments
+- has_many :purchase_records
 
-* Ruby version
+## items テーブル
 
-* System dependencies
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| item_name        | string     | null: false                    |
+| text             | text       | null: false                    |
+| price            | integer    | null: false                    |
+| item_status_id   | references | null: false, foreign_key: true |
+| delivery_fee_id  | references | null: false, foreign_key: true |
+| address_id       | references | null: false, foreign_key: true |
+| delivery_date_id | references | null: false, foreign_key: true |
+| genre_id         | references | null: false, foreign_key: true |
+| user_id          | references | null: false, foreign_key: true |
 
-* Configuration
+### Association
+- belongs_to :user
+- has_one :purchase_record
+- has_many :buyer_addresses
+- has_many :comments
+- has_one_attached :image
 
-* Database creation
+## purchase_records テーブル
 
-* Database initialization
+| Column  | Type       | Options           |
+| ------- | ---------- | ----------------- |
+| user_id | references | foreign_key: true |
+| item_id | references | foreign_key: true |
 
-* How to run the test suite
+### Association
+- belongs_to :user
+- belongs_to :item
+- has_one :buyer_address
 
-* Services (job queues, cache servers, search engines, etc.)
+## buyer_addresses テーブル
 
-* Deployment instructions
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| postal_code        | string     | null: false                    |
+| address_id         | references | null: false, foreign_key: true |
+| city               | string     | null: false                    |
+| house_number       | string     | null: false                    |
+| tell_number        | integer    | null: false                    |
+| purchase_record_id | references | foreign_key: true              |
+| item_id            | references | foreign_key: true              |
 
-* ...
+### Association
+- has_many :items
+- belongs_to :purchase_record
