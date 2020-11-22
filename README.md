@@ -9,7 +9,7 @@
 | nickname            | string     | null: false                    |
 | email               | string     | null: false, unique: true      |
 | encrypted_password  | string     | null: false                    |
-| birthday_id         | integer    | null: false                    |
+| birthday            | date       | null: false                    |
 
 ### Association
 - has_many :items
@@ -21,9 +21,9 @@
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | name             | string     | null: false                    |
-| text             | text       | null: false                    |
+| explanatory_text | text       | null: false                    |
 | price            | integer    | null: false                    |
-| item_status_id   | integer    | null: false                    |
+| status_id        | integer    | null: false                    |
 | delivery_fee_id  | integer    | null: false                    |
 | address_id       | integer    | null: false                    |
 | delivery_date_id | integer    | null: false                    |
@@ -33,7 +33,6 @@
 ### Association
 - belongs_to :user
 - has_one :purchase_record
-- has_many :buyer_addresses
 - has_many :comments
 - has_one_attached :image
 
@@ -57,7 +56,7 @@
 | address_id         | integer    | null: false                    |
 | city               | string     | null: false                    |
 | house_number       | string     | null: false                    |
-| building_name      | string     | null: false                    |
+| building_name      | string     |                                |
 | tell_number        | string     | null: false                    |
 | purchase_record    | references | foreign_key: true              |
 
