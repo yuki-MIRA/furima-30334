@@ -89,9 +89,10 @@ RSpec.describe User, type: :model do
 
       it '重複したemailが存在する場合登録できない' do
         @user.save
-        another_user = FactoryBot.build(:user, email: @user.email)
+        another_user = FactoryBot.build(:user)
+        another_user.email = @user.email
         another_user.valid?
-        expect(@user.errors.full_messages).to include
+        expect(another_user.errors.full_messages).to include("Email has already been taken")
       end
 
       it 'family_name_readingは平仮名だと登録できない' do
@@ -133,7 +134,6 @@ RSpec.describe User, type: :model do
       it 'パスワードは英字のみの入力だと登録できない' do
         @user.password = 'aaaaaa'
         @user.valid?
-        binding.pry
         expect(@user.errors.full_messages).to include('Password is invalid')
       end
     end
