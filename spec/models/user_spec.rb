@@ -9,12 +9,6 @@ RSpec.describe User, type: :model do
       it 'nicknameとemail、passwordとpassword_confirmation、family_nameとfirst_name、family_name_readingとfirst_name_reading、birthdayが存在すれば登録できる' do
         expect(@user).to be_valid
       end
-
-      it 'パスワードが6文字以上であれば登録できる' do
-        @user.password = 'a11111'
-        @user.password_confirmation = 'a11111'
-        expect(@user).to be_valid
-      end
     end
 
     context '新規登録がうまくいかないとき' do
@@ -95,6 +89,30 @@ RSpec.describe User, type: :model do
         expect(another_user.errors.full_messages).to include("Email has already been taken")
       end
 
+      it 'family_nameが英語では登録できない' do
+        @user.family_name = "aaa"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.")
+      end
+
+      it 'family_nameが数字では登録できない' do
+        @user.family_name = "111"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.")
+      end
+
+      it 'first_nameが英語では登録できない' do
+        @user.first_name = "aaa"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid. Input full-width characters.")
+      end
+
+      it 'first_nameが数字では登録できない' do
+        @user.first_name = "111"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid. Input full-width characters.")
+      end
+
       it 'family_name_readingは平仮名だと登録できない' do
         @user.family_name_reading = 'たなか'
         @user.valid?
@@ -135,6 +153,12 @@ RSpec.describe User, type: :model do
         @user.password = 'aaaaaa'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid')
+      end
+
+      it "パスワードが全角入力だと登録できない" do
+        @user.password = "a１２３４５"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
     end
   end
