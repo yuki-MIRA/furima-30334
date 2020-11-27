@@ -86,31 +86,31 @@ RSpec.describe User, type: :model do
         another_user = FactoryBot.build(:user)
         another_user.email = @user.email
         another_user.valid?
-        expect(another_user.errors.full_messages).to include("Email has already been taken")
+        expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
 
       it 'family_nameが英語では登録できない' do
-        @user.family_name = "aaa"
+        @user.family_name = 'aaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.")
+        expect(@user.errors.full_messages).to include('Family name is invalid. Input full-width characters.')
       end
 
       it 'family_nameが数字では登録できない' do
-        @user.family_name = "111"
+        @user.family_name = '111'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.")
+        expect(@user.errors.full_messages).to include('Family name is invalid. Input full-width characters.')
       end
 
       it 'first_nameが英語では登録できない' do
-        @user.first_name = "aaa"
+        @user.first_name = 'aaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name is invalid. Input full-width characters.")
+        expect(@user.errors.full_messages).to include('First name is invalid. Input full-width characters.')
       end
 
       it 'first_nameが数字では登録できない' do
-        @user.first_name = "111"
+        @user.first_name = '111'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name is invalid. Input full-width characters.")
+        expect(@user.errors.full_messages).to include('First name is invalid. Input full-width characters.')
       end
 
       it 'family_name_readingは平仮名だと登録できない' do
@@ -155,8 +155,8 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('Password is invalid')
       end
 
-      it "パスワードが全角入力だと登録できない" do
-        @user.password = "a１２３４５"
+      it 'パスワードが全角入力だと登録できない' do
+        @user.password = 'a１２３４５'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
