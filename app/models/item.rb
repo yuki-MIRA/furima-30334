@@ -22,4 +22,8 @@ class Item < ApplicationRecord
   
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :delivery_fee
+  belongs_to :genre
+  belongs_to :status
+  belongs_to :address
+  belongs_to :delivery_date
 end
