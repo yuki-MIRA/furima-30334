@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit]
+  before_action :set_item, only: [:show, :edit, :destroy]
   before_action :move_to_rogin, :move_to_top, only: :edit
 
   def index
@@ -35,9 +35,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    item = Item.find(params[:id])
-    if current_user.id == item.user_id
-      item.destroy
+    if current_user.id == @item.user_id
+      @item.destroy
       redirect_to root_path
     end
   end
