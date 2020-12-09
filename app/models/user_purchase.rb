@@ -7,7 +7,7 @@ class UserPurchase
     validates :address_id, numericality: { other_than: 0, message: 'Select' }
     validates :city
     validates :house_number
-    validates :tell_number, format: {with: /\A\d{11}\z/, message: "input Only Numbers"}
+    validates :tell_number, format: {with: /\A\d{11}\z/, message: "input Only Numbers.Number of digits 11"}
   end
 
   def save
