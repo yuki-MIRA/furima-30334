@@ -13,6 +13,9 @@ RSpec.describe UserPurchase, type: :model do
 
     context '商品購入がうまくいかないとき' do
       it 'クレジットカードの情報が空だと購入できない' do
+        @user_purchase.token = nil
+        @user_purchase.valid?
+        expect(@user_purchase.errors.full_messages).to include("Token can't be blank")
       end
 
       it '郵便番号が空だと購入できない' do
