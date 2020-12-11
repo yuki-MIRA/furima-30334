@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
   private
 
   def user_purchase_params
-    params.require(:user_purchase).permit(:postal_code, :address_id, :city, :house_number, :building_name, :tell_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token]) 
+    params.require(:user_purchase).permit(:postal_code, :address_id, :city, :house_number, :building_name, :tell_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
   end
 
   def set_item
@@ -28,30 +28,23 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-      Payjp::Charge.create(
-        amount: @item.price,
-        card: user_purchase_params[:token],
-        currency: 'jpy'
-      )
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: user_purchase_params[:token],
+      currency: 'jpy'
+    )
   end
 
   def move_to_rogin
-    unless user_signed_in?
-      redirect_to new_user_session_path
-    end
+    redirect_to new_user_session_path unless user_signed_in?
   end
 
   def move_to_top
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id
   end
 
   def other_move_to_top
-    unless @item.purchase_record == nil
-      redirect_to root_path
-    end
+    redirect_to root_path unless @item.purchase_record.nil?
   end
-
 end
