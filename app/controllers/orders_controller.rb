@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :create]
-  before_action :move_to_rogin, :move_to_top, :other_move_to_top, only: :index
-
+  before_action :move_to_login, :move_to_top, :other_move_to_top, only: :index
+  
   def index
     @user_purchase = UserPurchase.new
   end
@@ -36,7 +36,7 @@ class OrdersController < ApplicationController
     )
   end
 
-  def move_to_rogin
+  def move_to_login
     redirect_to new_user_session_path unless user_signed_in?
   end
 
