@@ -9,6 +9,11 @@ RSpec.describe UserPurchase, type: :model do
       it 'クレジットカード情報、postal_code, address_id, city, house_number, tell_numberがあれば登録できる' do
         expect(@user_purchase).to be_valid
       end
+
+      it '建物名は空でも購入できる' do
+        @user_purchase.building_name = nil
+        expect(@user_purchase).to be_valid
+      end
     end
 
     context '商品購入がうまくいかないとき' do
