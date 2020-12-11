@@ -8,6 +8,8 @@ class UserPurchase
     validates :city
     validates :house_number
     validates :tell_number, format: { with: /\A\d{11}\z/, message: 'input Only Numbers.Number of digits 11' }
+    validates :user_id
+    validates :item_id
     validates :token
   end
 
