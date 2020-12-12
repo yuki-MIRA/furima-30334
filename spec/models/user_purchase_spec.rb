@@ -70,6 +70,17 @@ RSpec.describe UserPurchase, type: :model do
         @user_purchase.valid?
         expect(@user_purchase.errors.full_messages).to include('Tell number input Only Numbers.Number of digits 11')
       end
+      it 'user_idが空だと購入できない' do
+        @user_purchase.user_id = nil
+        @user_purchase.valid?
+        expect(@user_purchase.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空だと購入できない' do
+        @user_purchase.item_id = nil
+        @user_purchase.valid?
+        expect(@user_purchase.errors.full_messages).to include("Item can't be blank")
+      end
     end
   end
 end
