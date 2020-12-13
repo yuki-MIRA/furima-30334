@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :move_to_rogin, :move_to_top, only: :edit
+  before_action :authenticate_user!, :move_to_top, :other_move_to_top, only: :edit
   before_action :move_to_top, only: :destroy
 
   def index
@@ -49,11 +49,11 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def move_to_rogin
-    redirect_to new_user_session_path unless user_signed_in?
-  end
-
   def move_to_top
     redirect_to root_path unless current_user.id == @item.user_id
+  end
+
+  def other_move_to_top
+    redirect_to root_path unless @item.purchase_record.nil?
   end
 end
