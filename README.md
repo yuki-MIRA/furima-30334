@@ -62,3 +62,14 @@
 
 ### Association
 - belongs_to :purchase_record
+
+## comments テーブル
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| text               | text       | null: false                    |
+| user               | references | foreign_key: true              |
+| item               | references | foreign_key: true              |
+
+### Association
+- belongs_to :user
+- belongs_to :item
