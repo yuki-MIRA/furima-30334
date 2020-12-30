@@ -204,3 +204,20 @@
   font-weight: bold;
   font-size: 23px;
 }
+
+.comment-log {
+  background-color: #f8f8f8;
+  font-size: 19px;
+}
+
+.comments {
+  width: 40vw;
+  background-color: #fff;
+  margin: 5vh 0;
+  text-align: center;
+  border: solid 2px #dedede;
+}
+
+.error-m {
+  text-align: left;
+}
